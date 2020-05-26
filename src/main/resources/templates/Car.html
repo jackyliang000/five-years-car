@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <script src="/js/jquery.min.js"></script>
+    <title>Car</title>
+</head>
+<br>
+     <input name="forward" type="button" value="前进" onclick="goForward()">
+     <input name="forward" type="button" value="转向" onclick="turnClockwise()"></br>
+     <div id="message">
+
+     </div>
+
+</body>
+<script type="text/javascript">
+
+    $(function(){
+        alert("123");
+    });
+
+    function goForward(){
+        $.ajax({
+                type:"get",
+                url:"/car/forward",
+                dataType:"json",
+                success:function (result) {
+                    console.log("成功,xPosition:"+result.data.xPosition+",yPosition:"
+                    +result.data.yPosition+",orientation:"+result.data.orientation);
+                    var innerHTML="msg:"+result.msg+"  xPosition:"+result.data.car.xPosition+",  yPosition:"
+                    +result.data.car.yPosition+",  orientation:"+result.data.car.orientation;
+                    setMessage(innerHTML);
+                    var xPosition=result.data.car.xPosition;
+                    var yPosition=result.data.car.yPosition;
+                    var xBorder=result.data.xBorder;
+                    var yBorder=result.data.yBorder;
+                    var map="";
+                    for(var i=1;i<=yBorder;i++){
+                        for(var j=1;j<=xBorder;j++){
+                           if(j==xPosition&&i==xBorder-yPosition+1){
+                               map+="C";
+                           }else if(j==xBorder){
+                               map+="0<br/>";
+                           }
+                           else{
+                               map+="0";
+                           }
+                        }
+                    }
+                    map += "<br/>";
+                    setMessage(map);
+                }
+            })
+    }
+
+    function turnClockwise(){
+        $.ajax({
+                type:"get",
+                url:"/car/turnClockwise",
+                dataType:"json",
+                success:function (result) {
+                    console.log("成功,xPosition:"+result.data.xPosition+",yPosition:"
+                    +result.data.yPosition+",orientation:"+result.data.orientation);
+                    var innerHTML="msg:"+result.msg+",  xPosition:"+result.data.car.xPosition+",  yPosition:"
+                    +result.data.car.yPosition+",  orientation:"+result.data.car.orientation;
+                    setMessage(innerHTML);
+                    var xPosition=result.data.car.xPosition;
+                    var yPosition=result.data.car.yPosition;
+                    var xBorder=result.data.xBorder;
+                    var yBorder=result.data.yBorder;
+                    var map="";
+                    for(var i=1;i<=yBorder;i++){
+                        for(var j=1;j<=xBorder;j++){
+                           if(j==xPosition&&i==xBorder-yPosition+1){
+                               map+="C";
+                           }else if(j==xBorder){
+                               map+="0<br/>";
+                           }
+                           else{
+                               map+="0";
+                           }
+                        }
+                    }
+                    map += "<br/>";
+                    setMessage(map);
+                }
+            });
+    }
+
+    function setMessage(innerHTML){
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+</script>
+</html>
