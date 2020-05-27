@@ -7,8 +7,8 @@
     <title>Car</title>
 </head>
 <br>
-     <input name="forward" type="button" value="前进" onclick="goForward()">
-     <input name="forward" type="button" value="转向" onclick="turnClockwise()"></br>
+     <input name="forward" type="button" value="forward" onclick="goForward()">
+     <input name="forward" type="button" value="turn" onclick="turnClockwise()"></br>
      <div id="message">
 
      </div>
@@ -28,7 +28,9 @@
                 success:function (result) {
                     console.log("成功,xPosition:"+result.data.xPosition+",yPosition:"
                     +result.data.yPosition+",orientation:"+result.data.orientation);
-                    var innerHTML="msg:"+result.msg+"  xPosition:"+result.data.car.xPosition+",  yPosition:"
+                    var innerHTML="msg:"+result.msg
+                    +"  position:("+result.data.car.xPosition+","+result.data.car.yPosition+")"
+                    +"  xPosition:"+result.data.car.xPosition+",  yPosition:"
                     +result.data.car.yPosition+",  orientation:"+result.data.car.orientation;
                     setMessage(innerHTML);
                     var xPosition=result.data.car.xPosition;
@@ -38,7 +40,7 @@
                     var map="";
                     for(var i=1;i<=yBorder;i++){
                         for(var j=1;j<=xBorder;j++){
-                           if(j==xPosition&&i==xBorder-yPosition+1){
+                           if(j==xPosition&&i==yBorder-yPosition+1){
                                map+="C";
                            }else if(j==xBorder){
                                map+="0<br/>";
@@ -62,7 +64,9 @@
                 success:function (result) {
                     console.log("成功,xPosition:"+result.data.xPosition+",yPosition:"
                     +result.data.yPosition+",orientation:"+result.data.orientation);
-                    var innerHTML="msg:"+result.msg+",  xPosition:"+result.data.car.xPosition+",  yPosition:"
+                    var innerHTML="msg:"+result.msg
+                    +"  position:("+result.data.car.xPosition+","+result.data.car.yPosition+")"
+                    +",  xPosition:"+result.data.car.xPosition+",  yPosition:"
                     +result.data.car.yPosition+",  orientation:"+result.data.car.orientation;
                     setMessage(innerHTML);
                     var xPosition=result.data.car.xPosition;
@@ -72,7 +76,7 @@
                     var map="";
                     for(var i=1;i<=yBorder;i++){
                         for(var j=1;j<=xBorder;j++){
-                           if(j==xPosition&&i==xBorder-yPosition+1){
+                           if(j==xPosition&&i==yBorder-yPosition+1){
                                map+="C";
                            }else if(j==xBorder){
                                map+="0<br/>";
